@@ -1,0 +1,15 @@
+
+
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+
+# Generate the guest's own keypair. build.py exports ~/.ssh/id_rsa.pub as
+# <output>-id_rsa.pub (the key the VM uses to connect back to the build host
+# for rsync), so it must exist before build.py reads it.
+rm -f ~/.ssh/id_rsa
+ssh-keygen -t rsa -f ~/.ssh/id_rsa -q -N ''
+
+# Do NOT reconfigure or restart sshd here. Root key login is already set up
+# by hooks/host_prepareImage.sh (PermitRootLogin / PubkeyAuthentication /
+# AcceptEnv are appended to /etc/ssh/sshd_config before first boot), and a
+# restart would drop the very connection this script arrives over.
