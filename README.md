@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/anyvm-org/hurd-builder/actions/workflows/build.yml/badge.svg)](https://github.com/anyvm-org/hurd-builder/actions/workflows/build.yml)
 
-Latest: 0.0.0
+Latest: v1.0.0
 
 
 The image builder for `hurd`
