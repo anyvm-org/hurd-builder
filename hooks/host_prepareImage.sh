@@ -21,7 +21,9 @@
 
 set -e
 
-echo "Preparing ${VM_OS_NAME}.qcow2 (Debian GNU/Hurd) via qemu-nbd"
+# build.py writes the working image under build/ (VM_WORK_QCOW); fall back to
+# the repo-root name for a standalone hook run.
+echo "Preparing ${VM_WORK_QCOW:-${VM_OS_NAME}.qcow2} (Debian GNU/Hurd) via qemu-nbd"
 
 # Generate the build's SSH keypair now so we can inject its public key into
 # the image. build.py would otherwise create the same key later; reuse it.
@@ -30,9 +32,9 @@ if [ ! -e "$HOME/.ssh/id_rsa" ]; then
 fi
 _pub="$(cat "$HOME/.ssh/id_rsa.pub")"
 
-_qcow="${VM_OS_NAME}.qcow2"
+_qcow="${VM_WORK_QCOW:-${VM_OS_NAME}.qcow2}"
 NBD=/dev/nbd0
-M_ROOT="$(pwd)/mnt-hurd-root"
+M_ROOT="$(pwd)/${VM_WORKDIR:+$VM_WORKDIR/}mnt-hurd-root"
 
 _cleanup() {
   sudo umount "$M_ROOT" 2>/dev/null || true

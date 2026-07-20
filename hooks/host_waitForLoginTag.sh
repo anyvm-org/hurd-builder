@@ -25,7 +25,9 @@ SSH_OPTS=(
   -p "${VM_SSH_PORT}"
 )
 
-SERIAL_LOG="${VM_OS_NAME:-hurd}.serial.log"
+# build.py writes the serial log under build/ (exported as VM_WORKDIR);
+# fall back to the repo root for a standalone hook run.
+SERIAL_LOG="${VM_WORKDIR:+$VM_WORKDIR/}${VM_OS_NAME:-hurd}.serial.log"
 
 _n=0
 # 120 iters * (timeout 30 + sleep 10) = up to ~80 min worst case; the Hurd
