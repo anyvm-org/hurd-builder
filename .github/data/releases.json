@@ -1,0 +1,23 @@
+{
+  "os": "hurd",
+  "releases": [
+    {
+      "tag": "2025",
+      "release": "2025",
+      "arch": "x86_64",
+      "sync": "rsync,scp,nfs",
+      "shutdown": "poweroff",
+      "desktop": false,
+      "build": true
+    },
+    {
+      "tag": "2025-i386",
+      "release": "2025",
+      "arch": "i386",
+      "sync": "rsync,scp,nfs",
+      "shutdown": "poweroff",
+      "desktop": false,
+      "build": true
+    }
+  ]
+}
